@@ -274,6 +274,14 @@ func getRegionsWithCapsAndSiteType(t *testing.T, client *linodego.Client, capabi
 	return result
 }
 
+func getRegions(t *testing.T, client *linodego.Client) []linodego.Region {
+	regions, err := client.ListRegions(context.Background(), nil)
+	require.NoError(t, err)
+	require.GreaterOrEqual(t, len(regions), 1)
+
+	return regions
+}
+
 func regionHasCaps(r linodego.Region, capabilities []string) bool {
 	capsMap := make(map[string]bool)
 
