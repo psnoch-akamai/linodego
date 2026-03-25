@@ -33,15 +33,15 @@ func TestInstances_List_smoke(t *testing.T) {
 		"Expected list of instances to include test instance, but got %v", linodes)
 	require.NotEmptyf(t, linodes[0].HostUUID, "failed to get instance HostUUID")
 	require.Falsef(t, linodes[0].HasUserData, "expected instance.HasUserData to be false, got true")
-	require.LessOrEqualf(t, linodes[0].Specs.GPUs, 0, "failed to retrieve number of GPUs")
+	require.GreaterOrEqualf(t, linodes[0].Specs.GPUs, 0, "failed to retrieve number of GPUs")
 
 	assert.GreaterOrEqual(t, linodes[0].Alerts.CPU, 0)
 	assert.GreaterOrEqual(t, linodes[0].Alerts.IO, 0)
 	assert.GreaterOrEqual(t, linodes[0].Alerts.NetworkIn, 0)
 	assert.GreaterOrEqual(t, linodes[0].Alerts.NetworkOut, 0)
 	assert.GreaterOrEqual(t, linodes[0].Alerts.TransferQuota, 0)
-	assert.GreaterOrEqual(t, len(linodes[0].Alerts.SystemAlerts), 0)
-	assert.GreaterOrEqual(t, len(linodes[0].Alerts.UserAlerts), 0)
+	assert.NotNil(t, linodes[0].Alerts.SystemAlerts)
+	assert.NotNil(t, linodes[0].Alerts.UserAlerts)
 }
 
 func TestInstance_Get_smoke(t *testing.T) {
@@ -62,20 +62,20 @@ func TestInstance_Get_smoke(t *testing.T) {
 	require.NoError(t, err, "Error getting instance: %s", err)
 	require.Equal(t, instance.ID, instanceGot.ID)
 	require.Equal(t, defaultPolicy, instanceGot.MaintenancePolicy)
-	require.GreaterOrEqualf(t, instanceGot.Specs.Disk, 0,
+	require.Greaterf(t, instanceGot.Specs.Disk, 0,
 		"Error parsing instance spec for disk size: %v", instanceGot.Specs)
 	require.NotEmpty(t, instanceGot.HostUUID, "failed to get instance HostUUID")
 
 	assertDateSet(t, instanceGot.Created)
 	assertDateSet(t, instanceGot.Updated)
 
-	assert.GreaterOrEqual(t, instance.Alerts.CPU, 0)
-	assert.GreaterOrEqual(t, instance.Alerts.IO, 0)
-	assert.GreaterOrEqual(t, instance.Alerts.NetworkIn, 0)
-	assert.GreaterOrEqual(t, instance.Alerts.NetworkOut, 0)
-	assert.GreaterOrEqual(t, instance.Alerts.TransferQuota, 0)
-	assert.GreaterOrEqual(t, len(instance.Alerts.SystemAlerts), 0)
-	assert.GreaterOrEqual(t, len(instance.Alerts.UserAlerts), 0)
+	assert.Greater(t, instanceGot.Alerts.CPU, 0)
+	assert.Greater(t, instanceGot.Alerts.IO, 0)
+	assert.GreaterOrEqual(t, instanceGot.Alerts.NetworkIn, 0)
+	assert.GreaterOrEqual(t, instanceGot.Alerts.NetworkOut, 0)
+	assert.GreaterOrEqual(t, instanceGot.Alerts.TransferQuota, 0)
+	assert.NotNil(t, instanceGot.Alerts.SystemAlerts)
+	assert.NotNil(t, instanceGot.Alerts.UserAlerts)
 }
 
 func TestInstance_GetTransfer(t *testing.T) {
