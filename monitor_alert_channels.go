@@ -21,36 +21,48 @@ const (
 	UserAlertChannel   AlertChannelType = "user"
 )
 
-// AlertChannelEnvelope represents a single alert channel entry returned inside alert definition
-type AlertChannelEnvelope struct {
-	ID    int    `json:"id"`
-	Label string `json:"label"`
-	Type  string `json:"type"`
-	URL   string `json:"url"`
-}
-
 // AlertChannel represents a Monitor Channel object.
 type AlertChannel struct {
-	Alerts      []AlertChannelEnvelope `json:"alerts"`
-	ChannelType AlertNotificationType  `json:"channel_type"`
-	Content     ChannelContent         `json:"content"`
-	Created     *time.Time             `json:"-"`
-	CreatedBy   string                 `json:"created_by"`
-	Updated     *time.Time             `json:"-"`
-	UpdatedBy   string                 `json:"updated_by"`
-	ID          int                    `json:"id"`
-	Label       string                 `json:"label"`
-	Type        AlertChannelType       `json:"type"`
+	Alerts      AlertsInfo            `json:"alerts"`
+	ChannelType AlertNotificationType `json:"channel_type"`
+	Content     ChannelContent        `json:"content"`
+	Details     ChannelDetails        `json:"details"`
+	Created     *time.Time            `json:"-"`
+	CreatedBy   string                `json:"created_by"`
+	Updated     *time.Time            `json:"-"`
+	UpdatedBy   string                `json:"updated_by"`
+	ID          int                   `json:"id"`
+	Label       string                `json:"label"`
+	Type        AlertChannelType      `json:"type"`
+}
+
+// AlertsInfo represents alert information for a channel
+type AlertsInfo struct {
+	URL        string `json:"url"`
+	Type       string `json:"type"`
+	AlertCount int    `json:"alert_count"`
 }
 
 type EmailChannelContent struct {
-	EmailAddresses []string `json:"email_addresses"`
+	EmailAddresses []string `json:"email_addresses,omitempty"`
 }
 
 // ChannelContent represents the content block for an AlertChannel, which varies by channel type.
 type ChannelContent struct {
 	Email *EmailChannelContent `json:"email"`
-	// Other channel types like 'webhook', 'slack' could be added here as optional fields.
+	// Other channel types like 'webhook', 'slack' could be added her
+}
+
+// ChannelDetails represents the details block for an AlertChannel
+type ChannelDetails struct {
+	Email *EmailChannelDetails `json:"email"`
+	// Other channel types could be added here
+}
+
+// EmailChannelDetails represents email-specific details for a channel
+type EmailChannelDetails struct {
+	Usernames     []string `json:"usernames"`
+	RecipientType string   `json:"recipient_type"`
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface

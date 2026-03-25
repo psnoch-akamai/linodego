@@ -11,15 +11,11 @@ interactions:
       - application/json
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
-    url: https://api.linode.com/v4beta/monitor/alert-channels?page=1
+    url: https://api.linode.com/v4beta/regions/nl-ams/vpc-availability
     method: GET
   response:
-    body: '{"pages": 1, "page": 1, "results": 1, "data": [{"id": 10000, "label": "Read-Write
-      Channel", "channel_type": "email", "type": "system", "content": {"email": {"email_addresses":
-      ["Users-with-read-write-access-to-resources"]}}, "details": {"email": {"usernames":
-      [], "recipient_type": "read_write_users"}}, "alerts": {"url": "/monitor/alert-channels/10000/alerts",
-      "type": "alerts-definitions", "alert_count": 8}, "created": "2018-01-02T03:04:05",
-      "updated": "2018-01-02T03:04:05", "created_by": "system", "updated_by": "system"}]}'
+    body: '{"region": "nl-ams", "available": true, "available_ipv6_prefix_lengths":
+      []}'
     headers:
       Access-Control-Allow-Credentials:
       - "true"
@@ -38,13 +34,13 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - "528"
+      - "76"
       Content-Security-Policy:
       - default-src 'none'
       Content-Type:
       - application/json
       Expires:
-      - Tue, 03 Mar 2026 16:41:28 GMT
+      - Mon, 02 Feb 2026 10:17:52 GMT
       Pragma:
       - no-cache
       Strict-Transport-Security:
@@ -53,7 +49,7 @@ interactions:
       - Authorization, X-Filter
       - Authorization, X-Filter
       X-Accepted-Oauth-Scopes:
-      - monitor:read_only
+      - vpc:read_only
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:

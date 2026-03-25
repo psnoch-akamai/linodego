@@ -12,6 +12,9 @@ import (
 
 const (
 	testMonitorAlertDefinitionServiceType = "dbaas"
+
+	// TODO: use a fixed channel id for now until the alert channel has been fixed.
+	channelID = 10000
 )
 
 func TestMonitorAlertDefinition_smoke(t *testing.T) {
@@ -120,7 +123,7 @@ func TestMonitorAlertDefinition_smoke(t *testing.T) {
 	assert.Equal(t, createOpts.TriggerConditions.PollingIntervalSeconds, createdAlert.TriggerConditions.PollingIntervalSeconds)
 	assert.Equal(t, createOpts.TriggerConditions.TriggerOccurrences, createdAlert.TriggerConditions.TriggerOccurrences)
 
-	if len(createdAlert.RuleCriteria.Rules) > 0 && len(createOpts.RuleCriteria.Rules) > 0 && len(createOpts.RuleCriteria.Rules) > 0 {
+	if len(createdAlert.RuleCriteria.Rules) > 0 && len(createOpts.RuleCriteria.Rules) > 0 {
 		assert.Equal(t, len(createOpts.RuleCriteria.Rules), len(createdAlert.RuleCriteria.Rules), "created alert should have same number of rules")
 		for i, r := range createOpts.RuleCriteria.Rules {
 			cr := createdAlert.RuleCriteria.Rules[i]
@@ -152,7 +155,16 @@ func TestMonitorAlertDefinition_smoke(t *testing.T) {
 		Description:       &createdAlert.Description,
 	}
 	// wait for 1 minute before update for create to complete
-	time.Sleep(1 * time.Minute)
+	_, err = client.WaitForAlertDefinitionStatus(
+		context.Background(),
+		linodego.AlertDefinitionStatusEnabled,
+		testMonitorAlertDefinitionServiceType,
+		createdAlert.ID,
+		300, // timeout in seconds (5 minutes)
+	)
+	if err != nil {
+		t.Logf("failed to wait for alert definition to be enabled: %s", err)
+	}
 	updatedAlert, err := client.UpdateMonitorAlertDefinition(context.Background(), testMonitorAlertDefinitionServiceType, createdAlert.ID, updateOpts)
 	if err != nil {
 		// Some fixtures may not support update; treat as non-fatal
