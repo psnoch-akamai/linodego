@@ -85,7 +85,7 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: '{"region":"pl-labkrk-2","type":"g6-nanode-1","label":"go-test-ins-rwt090uz33i0","root_pass":"0JaX~c=jHA\u003c69)vjGOa4\u003cvC7D\u003ezt0b6[Sp\u003e1;n81.L]z99Mz/C3=gwM9\u0026O\u0026?07VW","image":"linode/debian12","booted":false}'
+    body: '{"region":"pl-labkrk-2","type":"g6-nanode-1","label":"go-test-ins-52f558f9cfna","root_pass":"q?+,184bP.VfVe5{\u0026\u003eUAhmr(41xZmETcJ^lJM-65rJB9f4)0:2#36+U1\\Offq\u003cF2","image":"linode/debian12","booted":false}'
     form: {}
     headers:
       Accept:
@@ -97,9 +97,9 @@ interactions:
     url: https://api.linode.com/v4beta/linode/instances
     method: POST
   response:
-    body: '{"id": 101512108, "label": "go-test-ins-rwt090uz33i0", "group": "", "status":
+    body: '{"id": 101512398, "label": "go-test-ins-52f558f9cfna", "group": "", "status":
       "provisioning", "created": "2018-01-02T03:04:05", "updated": "2018-01-02T03:04:05",
-      "type": "g6-nanode-1", "ipv4": ["172.24.242.248"], "ipv6": "1234::5678/128",
+      "type": "g6-nanode-1", "ipv4": ["172.24.220.179"], "ipv6": "1234::5678/128",
       "image": "linode/debian12", "region": "pl-labkrk-2", "site_type": "core", "specs":
       {"disk": 25600, "memory": 1024, "vcpus": 1, "gpus": 0, "transfer": 1000, "accelerated_devices":
       0}, "alerts": {"cpu": 90, "network_in": 10, "network_out": 10, "transfer_quota":
@@ -164,15 +164,15 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_create","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode"}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_create","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode"}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862721, "created": "2018-01-02T03:04:05", "seen": false,
-      "read": false, "percent_complete": 54, "time_remaining": null, "rate": null,
-      "duration": 16.182041, "action": "linode_create", "username": "psnoch", "entity":
-      {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode", "url":
-      "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
+    body: '{"data": [{"id": 40866836, "created": "2018-01-02T03:04:05", "seen": false,
+      "read": false, "percent_complete": 51, "time_remaining": null, "rate": null,
+      "duration": 16.950058, "action": "linode_create", "username": "psnoch", "entity":
+      {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode", "url":
+      "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
       {"id": "linode/debian12", "type": "image", "label": "Debian 12", "url": "/v4/images/linode/debian12"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
@@ -233,15 +233,15 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_create","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862721}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_create","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866836}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862721, "created": "2018-01-02T03:04:05", "seen": false,
-      "read": false, "percent_complete": 71, "time_remaining": null, "rate": null,
-      "duration": 31.155937, "action": "linode_create", "username": "psnoch", "entity":
-      {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode", "url":
-      "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
+    body: '{"data": [{"id": 40866836, "created": "2018-01-02T03:04:05", "seen": false,
+      "read": false, "percent_complete": 59, "time_remaining": null, "rate": null,
+      "duration": 31.949474, "action": "linode_create", "username": "psnoch", "entity":
+      {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode", "url":
+      "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
       {"id": "linode/debian12", "type": "image", "label": "Debian 12", "url": "/v4/images/linode/debian12"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
@@ -302,15 +302,15 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_create","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862721}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_create","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866836}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862721, "created": "2018-01-02T03:04:05", "seen": false,
+    body: '{"data": [{"id": 40866836, "created": "2018-01-02T03:04:05", "seen": false,
       "read": false, "percent_complete": 100, "time_remaining": null, "rate": null,
-      "duration": 34.0, "action": "linode_create", "username": "psnoch", "entity":
-      {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode", "url":
-      "/v4/linode/instances/101512108"}, "status": "finished", "secondary_entity":
+      "duration": 37.0, "action": "linode_create", "username": "psnoch", "entity":
+      {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode", "url":
+      "/v4/linode/instances/101512398"}, "status": "finished", "secondary_entity":
       {"id": "linode/debian12", "type": "image", "label": "Debian 12", "url": "/v4/images/linode/debian12"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
@@ -361,7 +361,7 @@ interactions:
     code: 200
     duration: ""
 - request:
-    body: '{"label":"go-test-ins-rwt090uz33i0","alerts":{"cpu":50,"io":6000,"network_in":20,"network_out":20,"transfer_quota":50},"watchdog_enabled":true,"tags":[],"group":"","maintenance_policy":"linode/migrate"}'
+    body: '{"label":"go-test-ins-52f558f9cfna","alerts":{"cpu":50,"io":6000,"network_in":20,"network_out":20,"transfer_quota":50},"watchdog_enabled":true,"tags":[],"group":"","maintenance_policy":"linode/migrate"}'
     form: {}
     headers:
       Accept:
@@ -370,12 +370,12 @@ interactions:
       - application/json
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
-    url: https://api.linode.com/v4beta/linode/instances/101512108
+    url: https://api.linode.com/v4beta/linode/instances/101512398
     method: PUT
   response:
-    body: '{"id": 101512108, "label": "go-test-ins-rwt090uz33i0", "group": "", "status":
+    body: '{"id": 101512398, "label": "go-test-ins-52f558f9cfna", "group": "", "status":
       "offline", "created": "2018-01-02T03:04:05", "updated": "2018-01-02T03:04:05",
-      "type": "g6-nanode-1", "ipv4": ["172.24.242.248"], "ipv6": "1234::5678/128",
+      "type": "g6-nanode-1", "ipv4": ["172.24.220.179"], "ipv6": "1234::5678/128",
       "image": "linode/debian12", "region": "pl-labkrk-2", "site_type": "core", "specs":
       {"disk": 25600, "memory": 1024, "vcpus": 1, "gpus": 0, "transfer": 1000, "accelerated_devices":
       0}, "alerts": {"cpu": 50, "network_in": 20, "network_out": 20, "transfer_quota":
@@ -439,12 +439,12 @@ interactions:
       - application/json
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
-    url: https://api.linode.com/v4beta/linode/instances/101512108/clone
+    url: https://api.linode.com/v4beta/linode/instances/101512398/clone
     method: POST
   response:
-    body: '{"id": 101512112, "label": "linode101512112", "group": "", "status": "offline",
+    body: '{"id": 101512406, "label": "linode101512406", "group": "", "status": "offline",
       "created": "2018-01-02T03:04:05", "updated": "2018-01-02T03:04:05", "type":
-      "g6-nanode-1", "ipv4": ["172.24.220.179"], "ipv6": "1234::5678/128",
+      "g6-nanode-1", "ipv4": ["172.24.218.154"], "ipv6": "1234::5678/128",
       "image": "linode/debian12", "region": "pl-labkrk-2", "site_type": "core", "specs":
       {"disk": 25600, "memory": 1024, "vcpus": 1, "gpus": 0, "transfer": 1000, "accelerated_devices":
       0}, "alerts": {"cpu": 90, "network_in": 10, "network_out": 10, "transfer_quota":
@@ -509,16 +509,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode"}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode"}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
       "read": false, "percent_complete": 33, "time_remaining": null, "rate": null,
-      "duration": 15.485834, "action": "linode_clone", "username": "psnoch", "entity":
-      {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode", "url":
-      "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+      "duration": 15.338569, "action": "linode_clone", "username": "psnoch", "entity":
+      {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode", "url":
+      "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -578,16 +578,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862781}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866912}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
-      "read": false, "percent_complete": 35, "time_remaining": "0:1:26", "rate": "286.00
-      MB/s", "duration": 30.494811, "action": "linode_clone", "username": "psnoch",
-      "entity": {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode",
-      "url": "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
+      "read": false, "percent_complete": 35, "time_remaining": "0:1:19", "rate": "311.00
+      MB/s", "duration": 30.336636, "action": "linode_clone", "username": "psnoch",
+      "entity": {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode",
+      "url": "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -647,16 +647,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862781}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866912}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
-      "read": false, "percent_complete": 35, "time_remaining": "0:1:26", "rate": "286.00
-      MB/s", "duration": 45.491846, "action": "linode_clone", "username": "psnoch",
-      "entity": {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode",
-      "url": "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
+      "read": false, "percent_complete": 35, "time_remaining": "0:1:19", "rate": "311.00
+      MB/s", "duration": 45.333364, "action": "linode_clone", "username": "psnoch",
+      "entity": {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode",
+      "url": "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -716,16 +716,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862781}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866912}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
-      "read": false, "percent_complete": 58, "time_remaining": "0:0:12", "rate": "551.00
-      MB/s", "duration": 60.530819, "action": "linode_clone", "username": "psnoch",
-      "entity": {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode",
-      "url": "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
+      "read": false, "percent_complete": 58, "time_remaining": "0:0:12", "rate": "554.00
+      MB/s", "duration": 60.342629, "action": "linode_clone", "username": "psnoch",
+      "entity": {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode",
+      "url": "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -785,16 +785,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862781}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866912}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
-      "read": false, "percent_complete": 58, "time_remaining": "0:0:12", "rate": "551.00
-      MB/s", "duration": 75.489526, "action": "linode_clone", "username": "psnoch",
-      "entity": {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode",
-      "url": "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
+      "read": false, "percent_complete": 58, "time_remaining": "0:0:12", "rate": "554.00
+      MB/s", "duration": 75.330909, "action": "linode_clone", "username": "psnoch",
+      "entity": {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode",
+      "url": "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -854,16 +854,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862781}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866912}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
-      "read": false, "percent_complete": 58, "time_remaining": "0:0:12", "rate": "551.00
-      MB/s", "duration": 90.501822, "action": "linode_clone", "username": "psnoch",
-      "entity": {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode",
-      "url": "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
+      "read": false, "percent_complete": 58, "time_remaining": "0:0:12", "rate": "554.00
+      MB/s", "duration": 90.342486, "action": "linode_clone", "username": "psnoch",
+      "entity": {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode",
+      "url": "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -923,16 +923,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862781}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866912}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
       "read": false, "percent_complete": 67, "time_remaining": null, "rate": null,
-      "duration": 105.479098, "action": "linode_clone", "username": "psnoch", "entity":
-      {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode", "url":
-      "/v4/linode/instances/101512108"}, "status": "started", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+      "duration": 105.338397, "action": "linode_clone", "username": "psnoch", "entity":
+      {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode", "url":
+      "/v4/linode/instances/101512398"}, "status": "started", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -992,16 +992,16 @@ interactions:
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
       X-Filter:
-      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512108,"entity.type":"linode","id":{"+gte":40862781}}'
+      - '{"+order":"desc","+order_by":"created","action":"linode_clone","created":{"+gte":"2018-01-02T03:04:05"},"entity.id":101512398,"entity.type":"linode","id":{"+gte":40866912}}'
     url: https://api.linode.com/v4beta/account/events?page=1
     method: GET
   response:
-    body: '{"data": [{"id": 40862781, "created": "2018-01-02T03:04:05", "seen": false,
+    body: '{"data": [{"id": 40866912, "created": "2018-01-02T03:04:05", "seen": false,
       "read": false, "percent_complete": 100, "time_remaining": null, "rate": null,
-      "duration": 111.0, "action": "linode_clone", "username": "psnoch", "entity":
-      {"label": "go-test-ins-rwt090uz33i0", "id": 101512108, "type": "linode", "url":
-      "/v4/linode/instances/101512108"}, "status": "finished", "secondary_entity":
-      {"id": 101512112, "type": "linode", "label": "linode101512112", "url": "/v4/linode/instances/101512112"},
+      "duration": 110.0, "action": "linode_clone", "username": "psnoch", "entity":
+      {"label": "go-test-ins-52f558f9cfna", "id": 101512398, "type": "linode", "url":
+      "/v4/linode/instances/101512398"}, "status": "finished", "secondary_entity":
+      {"id": 101512406, "type": "linode", "label": "linode101512406", "url": "/v4/linode/instances/101512406"},
       "message": "", "details": {}}], "page": 1, "pages": 1, "results": 1}'
     headers:
       Access-Control-Allow-Credentials:
@@ -1060,7 +1060,7 @@ interactions:
       - application/json
       User-Agent:
       - linodego/dev https://github.com/linode/linodego
-    url: https://api.linode.com/v4beta/linode/instances/101510920
+    url: https://api.linode.com/v4beta/linode/instances/101512398
     method: DELETE
   response:
     body: '{}'
