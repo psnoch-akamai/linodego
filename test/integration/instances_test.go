@@ -1153,7 +1153,7 @@ func TestInstance_MaintenancePolicy(t *testing.T) {
 
 func TestExpectedErrorIfFieldsAuthorizedUsersAuthorizedKeysRootPassAreNotSet(t *testing.T) {
 	client, teardown := createTestClient(t,
-		"fixtures/TestInstance_AlertsWorkflow")
+		"fixtures/TestInstance_TestExpectedErrorIfFieldsAuthorizedUsersAuthorizedKeysRootPassAreNotSet")
 	defer teardown()
 
 	region := getRegionsWithCapsAndSiteType(
@@ -1176,9 +1176,9 @@ func TestExpectedErrorIfFieldsAuthorizedUsersAuthorizedKeysRootPassAreNotSet(t *
 	assert.Contains(t, err.Error(), "[400] Must provide valid root_pass, authorized_keys, or authorized_users")
 }
 
-func TestCreateLinodeWithKernalAndBootSizeThenAddDiskAndRebuild(t *testing.T) {
+func TestCreateLinodeWithKernelAndBootSizeThenAddDiskAndRebuild(t *testing.T) {
 	client, teardown := createTestClient(t,
-		"fixtures/TestInstance_AlertsWorkflow")
+		"fixtures/TestInstance_TestCreateLinodeWithKernelAndBootSizeThenAddDiskAndRebuild")
 	defer teardown()
 
 	region := getRegionsWithCapsAndSiteType(
@@ -1195,7 +1195,7 @@ func TestCreateLinodeWithKernalAndBootSizeThenAddDiskAndRebuild(t *testing.T) {
 			Image:          "linode/debian12",
 			Kernel:         linodego.Pointer("linode/latest-64bit"),
 			BootSize:       linodego.Pointer(8192),
-			AuthorizedKeys: []string{"ssh-rsa"},
+			AuthorizedKeys: []string{testSSHKeyCreateOpts.SSHKey},
 		},
 	)
 	require.NoError(t, err)
@@ -1222,7 +1222,9 @@ func TestCreateLinodeWithKernalAndBootSizeThenAddDiskAndRebuild(t *testing.T) {
 		RootPass:   randPassword(),
 	})
 	require.NoError(t, errCreateDisk)
-	assert.Equal(t, linodego.DiskNotReady, createDiskResponse.Status)
+	createDiskResponse, err = client.WaitForInstanceDiskStatus(context.Background(), instance.ID, createDiskResponse.ID, linodego.DiskReady, 180)
+	require.NoError(t, err)
+	assert.Equal(t, linodego.DiskReady, createDiskResponse.Status)
 
 	rebuildResponse, errRebuild := client.RebuildInstance(context.Background(), instance.ID, linodego.InstanceRebuildOptions{
 		Image: "linode/alpine3.19",
