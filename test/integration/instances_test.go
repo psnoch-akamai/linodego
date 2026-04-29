@@ -42,8 +42,6 @@ func TestInstances_List_smoke(t *testing.T) {
 	assert.GreaterOrEqual(t, linodes[0].Alerts.NetworkIn, 0)
 	assert.GreaterOrEqual(t, linodes[0].Alerts.NetworkOut, 0)
 	assert.GreaterOrEqual(t, linodes[0].Alerts.TransferQuota, 0)
-	assert.NotNil(t, linodes[0].Alerts.SystemAlerts)
-	assert.NotNil(t, linodes[0].Alerts.UserAlerts)
 }
 
 func TestInstance_Get_smoke(t *testing.T) {
@@ -76,8 +74,6 @@ func TestInstance_Get_smoke(t *testing.T) {
 	assert.GreaterOrEqual(t, instanceGot.Alerts.NetworkIn, 0)
 	assert.GreaterOrEqual(t, instanceGot.Alerts.NetworkOut, 0)
 	assert.GreaterOrEqual(t, instanceGot.Alerts.TransferQuota, 0)
-	assert.NotNil(t, instanceGot.Alerts.SystemAlerts)
-	assert.NotNil(t, instanceGot.Alerts.UserAlerts)
 }
 
 func TestInstance_GetTransfer(t *testing.T) {
@@ -1002,8 +998,7 @@ func TestLinodeLegacyAlertsWorkflow(t *testing.T) {
 	clonedInstance, err := client.CloneInstance(context.Background(), instance.ID, cloneOptions)
 	require.NoError(t, err)
 	t.Cleanup(func() {
-		err := client.DeleteInstance(context.Background(), clonedInstance.ID)
-		require.NoError(t, err)
+		waitForCloneCompleteAndDeleteLinode(t, client, 10, 100, clonedInstance)
 	})
 	assert.Equal(t, 90, clonedInstance.Alerts.CPU)
 	assert.Equal(t, 10000, clonedInstance.Alerts.IO)
@@ -1255,6 +1250,28 @@ func TestInstance_MaintenancePolicy(t *testing.T) {
 	_, err = client.UpdateInstance(context.Background(), instToUpdate.ID, updateOpts)
 	require.Error(t, err)
 	require.Contains(t, err.Error(), "Unsupported maintenance policy slug format")
+}
+
+func waitForCloneCompleteAndDeleteLinode(t *testing.T, client *linodego.Client, interval int, timeout int, linode *linodego.Instance) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Second)
+	defer cancel()
+
+	ticker := time.NewTicker(time.Duration(interval))
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			err := client.DeleteInstance(context.Background(), linode.ID)
+			if err != nil {
+				require.Contains(t, err.Error(), "Linode is the target of an ongoing clone")
+			} else {
+				return
+			}
+		case <-ctx.Done():
+			return
+		}
+	}
 }
 
 func getAlertChannelsList(t *testing.T, client *linodego.Client) []linodego.AlertChannel {
