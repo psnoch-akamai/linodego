@@ -3,10 +3,12 @@ package integration
 import (
 	"context"
 	"encoding/base64"
+	"fmt"
 	"slices"
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/linode/linodego"
 	"github.com/stretchr/testify/assert"
@@ -935,12 +937,12 @@ func TestInstance_withPG(t *testing.T) {
 	require.Equal(t, inst.PlacementGroup.PlacementGroupPolicy, pg.PlacementGroupPolicy)
 }
 
-func TestLinodeAlertsWorkflow(t *testing.T) {
+func TestLinodeLegacyAlertsWorkflow(t *testing.T) {
 	client, teardown := createTestClient(t,
-		"fixtures/TestInstance_AlertsWorkflow")
+		"fixtures/TestInstance_LegacyAlertsWorkflow")
 	defer teardown()
 
-	region := getRegions(t, client)[0].ID
+	region := getRegionsWithCaps(t, client, []string{"linodes"})[0]
 	instance, err := createInstance(
 		t,
 		client,
@@ -992,7 +994,7 @@ func TestLinodeAlertsWorkflow(t *testing.T) {
 
 	cloneOptions := linodego.InstanceCloneOptions{
 		Region: region,
-		Type:      "g6-nanode-1",
+		Type:   "g6-nanode-1",
 		Alerts: &linodego.InstanceACLPAlertsOptions{
 			SystemAlerts: []int{},
 		},
@@ -1022,12 +1024,12 @@ func TestLinodeAlertsWorkflow(t *testing.T) {
 	require.NoError(t, err)
 }
 
-func TestTryToUpdateLinodeAlertsLegacyAndAclpAtTheSameTime(t *testing.T) {
+func TestUpdateACLPAlerts(t *testing.T) {
 	client, teardown := createTestClient(t,
-		"fixtures/TestInstance_TryToUpdateLinodeAlertsLegacyAndAclpAtTheSameTime")
+		"fixtures/TestInstance_UpdateACLPAlerts")
 	defer teardown()
 
-	region := getRegions(t, client)[0].ID
+	region := getRegionsWithCaps(t, client, []string{"linodes"})[0]
 	instToUpdate, err := createInstance(
 		t,
 		client,
@@ -1042,22 +1044,23 @@ func TestTryToUpdateLinodeAlertsLegacyAndAclpAtTheSameTime(t *testing.T) {
 		require.NoError(t, err)
 	}()
 
+	sampleSystemAlert := getSampleSystemAlert(t, client)
+	testUserAlert := createAlertServiceDefinition(t, client).ID
+	defer func() {
+		errDeleteUserAlert := client.DeleteMonitorAlertDefinition(context.Background(), testMonitorAlertDefinitionServiceType, testUserAlert)
+		require.NoError(t, errDeleteUserAlert)
+	}()
 	updateOpts := instToUpdate.GetUpdateOptions()
 	alertsUpdateData := linodego.InstanceAlert{
-		CPU:           50,
-		IO:            6000,
-		NetworkIn:     20,
-		NetworkOut:    20,
-		TransferQuota: 50,
-		SystemAlerts:  []int{123456},
-		UserAlerts:    []int{1, 2},
+		UserAlerts:   []int{testUserAlert},
+		SystemAlerts: []int{sampleSystemAlert},
 	}
 	updateOpts.Alerts = &alertsUpdateData
 	updateOpts.Backups = nil
-	_, errUpdate := client.UpdateInstance(context.Background(), instToUpdate.ID, updateOpts)
-	require.Error(t, errUpdate)
-	assert.Contains(t, errUpdate.Error(), "[400] [alerts] Cannot set both legacy " +
-		"and ACLP alerts simultaneously")
+	updateResponse, errUpdate := client.UpdateInstance(context.Background(), instToUpdate.ID, updateOpts)
+	require.NoError(t, errUpdate)
+	assert.Equal(t, []int{sampleSystemAlert}, updateResponse.Alerts.SystemAlerts)
+	assert.Equal(t, []int{testUserAlert}, updateResponse.Alerts.UserAlerts)
 }
 
 func createInstance(t *testing.T, client *linodego.Client, enableCloudFirewall bool, modifiers ...instanceModifier) (*linodego.Instance, error) {
@@ -1252,4 +1255,63 @@ func TestInstance_MaintenancePolicy(t *testing.T) {
 	_, err = client.UpdateInstance(context.Background(), instToUpdate.ID, updateOpts)
 	require.Error(t, err)
 	require.Contains(t, err.Error(), "Unsupported maintenance policy slug format")
+}
+
+func getAlertChannelsList(t *testing.T, client *linodego.Client) []linodego.AlertChannel {
+	channels, err := client.ListAlertChannels(context.Background(), nil)
+	assert.NoError(t, err)
+	assert.NotEmpty(t, channels, "Expected at least one alert channel")
+
+	return channels
+}
+
+func createAlertServiceDefinition(t *testing.T, client *linodego.Client) *linodego.MonitorAlertDefinition {
+	ruleCriteria := linodego.AlertDefinitionCreateOptions{
+		Label: fmt.Sprintf("test-%d-service-definition", time.Now().UnixNano()),
+		RuleCriteria: &linodego.RuleCriteriaOptions{
+			Rules: []linodego.RuleOptions{
+				{
+					AggregateFunction: "min",
+					Metric:            "memory_usage",
+					Operator:          "eq",
+					Threshold:         95,
+					DimensionFilters: []linodego.DimensionFilterOptions{
+						{
+							DimensionLabel: "node_type",
+							Operator:       "eq",
+							Value:          "primary",
+						},
+					},
+				},
+			},
+		},
+		TriggerConditions: &linodego.TriggerConditions{
+			CriteriaCondition:       "ALL",
+			EvaluationPeriodSeconds: 300,
+			PollingIntervalSeconds:  900,
+			TriggerOccurrences:      3,
+		},
+
+		Severity:   1,
+		ChannelIDs: []int{getAlertChannelsList(t, client)[0].ID},
+	}
+
+	alert, err := client.CreateMonitorAlertDefinition(context.Background(), testMonitorAlertDefinitionServiceType, ruleCriteria)
+	require.NoError(t, err)
+	return alert
+}
+
+func getSampleSystemAlert(t *testing.T, client *linodego.Client) int {
+	alerts, listErr := client.ListMonitorAlertDefinitions(context.Background(), testMonitorAlertDefinitionServiceType, nil)
+	require.NoError(t, listErr)
+	sampleSystemAlertIR := 0
+	for _, alert := range alerts {
+		if alert.Type == "system" {
+			sampleSystemAlertIR = alert.ID
+			break
+		}
+	}
+	require.Greater(t, sampleSystemAlertIR, 0, "No system alert definitions found. Cannot run tests dependent on system alert definitions.")
+
+	return sampleSystemAlertIR
 }
