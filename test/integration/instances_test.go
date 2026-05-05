@@ -1159,7 +1159,7 @@ func TestExpectedErrorIfFieldsAuthorizedUsersAuthorizedKeysRootPassAreNotSet(t *
 	region := getRegionsWithCapsAndSiteType(
 		t,
 		client,
-		[]string{"Linodes", "Maintenance Policy"},
+		[]string{linodego.CapabilityLinodes, linodego.CapabilityMaintenancePolicy},
 		"core",
 	)[0]
 	_, err := client.CreateInstance(context.Background(),
@@ -1184,7 +1184,7 @@ func TestCreateLinodeWithKernelAndBootSizeThenAddDiskAndRebuild(t *testing.T) {
 	region := getRegionsWithCapsAndSiteType(
 		t,
 		client,
-		[]string{"Linodes", "Maintenance Policy"},
+		[]string{linodego.CapabilityLinodes, linodego.CapabilityMaintenancePolicy},
 		"core",
 	)[0]
 	instance, err := client.CreateInstance(context.Background(),
